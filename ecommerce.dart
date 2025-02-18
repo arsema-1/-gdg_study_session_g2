@@ -1,118 +1,125 @@
 import 'dart:io';
 
 class Product {
-  String name; // Product name
-  double price; // Product price
+  String name;
+  String description;
+  double price;
 
-  Product(this.name, this.price);
+  Product(this.name, this.description, this.price);
 
-  // Display product details
-  void display() {
-    print(name + " - " + price.toStringAsFixed(2) + " ETB");
+  @override
+  String toString() {
+    return 'Name: ' +
+        name +
+        '\nDescription: ' +
+        description +
+        '\nPrice: ' +
+        price.toStringAsFixed(2);
   }
 }
 
-class ShoppingCart {
-  List<Product> cart = [];
+class ProductManager {
+  List<Product> products = [];
 
-  void addProduct(Product product) {
-    cart.add(product);
-    print("\n" + product.name + " has been added to your cart.\n");
+  void addProduct(String name, String description, double price) {
+    products.add(Product(name, description, price));
+    print('Product added successfully!');
   }
 
-  //  show all items in the cart
-  void showCart() {
-    if (cart.isEmpty) {
-      print("Your cart is empty!\n");
-    } else {
-      print("Your Cart:");
-      for (int i = 0; i < cart.length; i++) {
-        cart[i].display();
-      }
-      print("\nTotal Price: " + getTotal().toStringAsFixed(2) + " ETB\n");
+  void viewAllProducts() {
+    if (products.isEmpty) {
+      print('No products available.');
+      return;
+    }
+    for (int i = 0; i < products.length; i++) {
+      print('\nProduct ID: ' + i.toString());
+      print(products[i]);
     }
   }
 
-  // calculate the total price
-  double getTotal() {
-    double total = 0;
-    for (var item in cart) {
-      total += item.price;
+  void viewProduct(int index) {
+    if (index < 0 || index >= products.length) {
+      print('Invalid product ID.');
+      return;
     }
-    return total;
+    print(products[index]);
   }
 
-  void checkout() {
-    if (cart.isEmpty) {
-      print("\nYour cart is empty! Add items before checking out.\n");
-    } else {
-      print("\nTotal Amount: " + getTotal().toStringAsFixed(2) + " ETB");
-      print("Checkout successful! Thank you for shopping.\n");
-      cart.clear();
+  void editProduct(
+      int index, String newName, String newDescription, double newPrice) {
+    if (index < 0 || index >= products.length) {
+      print('Invalid product ID.');
+      return;
     }
+    products[index].name = newName;
+    products[index].description = newDescription;
+    products[index].price = newPrice;
+    print('Product updated successfully!');
+  }
+
+  void deleteProduct(int index) {
+    if (index < 0 || index >= products.length) {
+      print('Invalid product ID.');
+      return;
+    }
+    products.removeAt(index);
+    print('Product deleted successfully!');
   }
 }
 
 void main() {
-  List<Product> products = [
-    Product("Laptop", 42000.00),
-    Product("Phone", 25000.00),
-    Product("Headphones", 3500.00)
-  ];
-
-  // Create a shopping cart object
-  ShoppingCart cart = ShoppingCart();
+  ProductManager manager = ProductManager();
 
   while (true) {
-    print("\nWelcome to our Electronics E-Commerce Store ");
-    print("1. View Products");
-    print("2. Add Product to Cart");
-    print("3. View Cart");
-    print("4. Checkout");
-    print("5. Exit");
-    stdout.write("Choose an option: ");
-
+    print('\n===== E-Commerce Product Manager =====');
+    print('1. Add Product');
+    print('2. View All Products');
+    print('3. View Product');
+    print('4. Edit Product');
+    print('5. Delete Product');
+    print('6. Exit');
+    stdout.write('Enter your choice: ');
     String? choice = stdin.readLineSync();
-    if (choice == "1") {
-      print("\nAvailable Products:");
-      for (int i = 0; i < products.length; i++) {
-        print((i + 1).toString() +
-            ". " +
-            products[i].name +
-            " - " +
-            products[i].price.toString() +
-            " ETB");
-      }
-    } else if (choice == "2") {
-      print("\nEnter the product number to add to cart:");
-      for (int i = 0; i < products.length; i++) {
-        print((i + 1).toString() +
-            ". " +
-            products[i].name +
-            " - " +
-            products[i].price.toString() +
-            " ETB");
-      }
-      stdout.write("Enter product number: ");
-      String? input = stdin.readLineSync();
-      int? productIndex = int.tryParse(input ?? "");
 
-      if (productIndex != null &&
-          productIndex > 0 &&
-          productIndex <= products.length) {
-        cart.addProduct(products[productIndex - 1]);
-      } else {
-        print("Invalid selection. Please try again.\n");
-      }
-    } else if (choice == "3") {
-      cart.showCart();
-    } else if (choice == "4") {
-      cart.checkout();
-    } else if (choice == "5") {
-      print("\n Goodbye.");
-      break;
-    } else {
-      print("Invalid option. Please enter a number between 1 and 5.");
+    switch (choice) {
+      case '1':
+        stdout.write('Enter product name: ');
+        String name = stdin.readLineSync()!;
+        stdout.write('Enter product description: ');
+        String description = stdin.readLineSync()!;
+        stdout.write('Enter product price: ');
+        double price = double.tryParse(stdin.readLineSync()!) ?? 0.0;
+        manager.addProduct(name, description, price);
+        break;
+      case '2':
+        manager.viewAllProducts();
+        break;
+      case '3':
+        stdout.write('Enter product ID: ');
+        int index = int.tryParse(stdin.readLineSync()!) ?? -1;
+        manager.viewProduct(index);
+        break;
+      case '4':
+        stdout.write('Enter product ID to edit: ');
+        int index = int.tryParse(stdin.readLineSync()!) ?? -1;
+        stdout.write('Enter new product name: ');
+        String newName = stdin.readLineSync()!;
+        stdout.write('Enter new product description: ');
+        String newDescription = stdin.readLineSync()!;
+        stdout.write('Enter new product price: ');
+        double newPrice = double.tryParse(stdin.readLineSync()!) ?? 0.0;
+        manager.editProduct(index, newName, newDescription, newPrice);
+        break;
+      case '5':
+        stdout.write('Enter product ID to delete: ');
+        int index = int.tryParse(stdin.readLineSync()!) ?? -1;
+        manager.deleteProduct(index);
+        break;
+      case '6':
+        print('Exiting application.');
+        return;
+      default:
+        print('Invalid choice. Please enter a number between 1 and 6.');
     }
   }
 }
