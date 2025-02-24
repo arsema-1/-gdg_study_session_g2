@@ -65,7 +65,7 @@ Choose an operation:
     print('\nDo you want to perform another calculation? (y/n)');
     String? again = stdin.readLineSync();
     if (again?.toLowerCase() != 'y') {
-      print('Thank you for using the Dart Calculator. Goodbye!');
+      print(' Goodbye!');
       break;
     }
   }
