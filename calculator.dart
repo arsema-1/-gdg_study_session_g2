@@ -25,7 +25,7 @@ Choose an operation:
   6. Exponentiation (^)
   ''');
 
-    print('Enter your choice (1-6):');
+    print('Enter your choice:');
     String? choice = stdin.readLineSync();
 
     double result;
