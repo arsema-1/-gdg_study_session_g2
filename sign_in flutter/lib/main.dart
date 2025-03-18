@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
         useMaterial3: true,
       ),
-      home:  SignInScreen(), // Set FoodScreen as the home screen
+      home: SignInScreen(), // Set FoodScreen as the home screen
     );
   }
 }

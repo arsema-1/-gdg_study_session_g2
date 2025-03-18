@@ -71,7 +71,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   child: ElevatedButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        Navigator.push(
+                        Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                               builder: (context) => SleepTrackerScreen()),
@@ -82,16 +82,18 @@ class _SignInScreenState extends State<SignInScreen> {
                       backgroundColor: Colors.teal,
                       padding: EdgeInsets.symmetric(vertical: 15),
                       shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8)),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
                     ),
                     child: Text("Sign In",
                         style: TextStyle(fontSize: 16, color: Colors.white)),
                   ),
                 ),
                 SizedBox(height: 20),
-                Text("OR",
-                    style: TextStyle(fontSize: 16, color: Colors.grey),
-                    textAlign: TextAlign.center),
+                Center(
+                  child: Text("OR",
+                      style: TextStyle(fontSize: 16, color: Colors.grey)),
+                ),
                 SizedBox(height: 20),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
