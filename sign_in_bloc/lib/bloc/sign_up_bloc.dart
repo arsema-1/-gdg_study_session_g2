@@ -48,9 +48,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
     }
 
     emit(state.copyWith(status: SignUpStatus.loading));
-    // Simulate sign-up process
     await Future.delayed(const Duration(seconds: 1));
-    // In a real app, you would call your registration service here.
     if (state.email.contains('@')) {
       emit(state.copyWith(status: SignUpStatus.success));
     } else {

@@ -6,8 +6,7 @@ class SleepTrackerScreen extends StatefulWidget {
 }
 
 class _SleepTrackerScreenState extends State<SleepTrackerScreen> {
-  int _selectedDay = 24; // Initially, the 24th is selected
-
+  int _selectedDay = 24; 
   // Variables to track switch states
   bool _isBedTimeOn = true;
   bool _isAlarmOn = true;
@@ -87,14 +86,14 @@ class _SleepTrackerScreenState extends State<SleepTrackerScreen> {
               children: List.generate(6, (index) {
                 int day = 22 + index;
                 bool isSelected =
-                    day == _selectedDay; // Highlight the selected day
+                    day == _selectedDay; 
                 return Column(
                   children: [
                     Text("Thu"),
                     GestureDetector(
                       onTap: () {
                         setState(() {
-                          _selectedDay = day; // Update the selected day
+                          _selectedDay = day; 
                         });
                       },
                       child: Container(
@@ -128,14 +127,14 @@ class _SleepTrackerScreenState extends State<SleepTrackerScreen> {
                     (bool value) {
                   setState(() {
                     _isBedTimeOn =
-                        value; // Update the state when switch is toggled
+                        value; 
                   });
                 }),
                 sleepInfoCard(Icons.alarm, "Alarm", "16H and 18Min", _isAlarmOn,
                     (bool value) {
                   setState(() {
                     _isAlarmOn =
-                        value; // Update the state when switch is toggled
+                        value; 
                   });
                 }),
               ],

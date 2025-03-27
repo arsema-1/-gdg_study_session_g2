@@ -101,7 +101,6 @@ class SignInScreen extends StatelessWidget {
         if (_formKey.currentState!.validate()) {
           context.read<SignInBloc>().add(SignInSubmitted());
 
-          // Navigate to SleepTrackerScreen
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => SleepTrackerScreen()),
@@ -166,7 +165,6 @@ class SignInScreen extends StatelessWidget {
                       SizedBox(height: 20),
                       if (state.email.isNotEmpty)
                         Text("Entered Email: ${state.email}"),
-                      // We generally avoid displaying the password on screen
                        if (state.password.isNotEmpty)
                          Text("Entered Password: ${state.password}"),
                     ],

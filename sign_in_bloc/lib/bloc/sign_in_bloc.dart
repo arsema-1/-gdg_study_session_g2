@@ -33,7 +33,6 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
     emit(state.copyWith(status: SignInStatus.loading));
     print("SignInBloc: Emitting loading state"); // Added for debugging
 
-    // Simulate sign-in process
     await Future.delayed(const Duration(seconds: 1));
 
     if (state.email == 'test@example.com' && state.password == 'password') {
